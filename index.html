@@ -1,4 +1,4 @@
-  <!DOCTYPE ahtml>
+<!DOCTYPE ahtml>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -322,12 +322,18 @@
                             **Hardware/HMI:** Built custom hardware to compensate for incorrectly oriented input devices. Published research on human compensation for unexpected control/display mappings.
                         </p>
                         
-                        <!-- Embedded Video - FIXED SOURCE -->
+                        <!-- Embedded Video - FINAL ATTEMPT WITH ROBUST CDN LINK -->
                         <div class="mb-4 max-w-xs">
                             <video controls class="w-full rounded-md shadow-md" 
-                                src="https://mattyanko.github.io/me/Spynr%2520short%2520demo.mp4" 
                                 poster="https://placehold.co/400x225/334155/ffffff?text=Video+Demo+Loading" 
-                                onerror="this.outerHTML='<p class=\'text-xs text-red-400\'>Error: Video failed to load. Please ensure the file is publicly hosted on GitHub and the URL is case-sensitive and correctly encoded (no spaces).</p>'">
+                                onerror="this.outerHTML='<p class=\'text-xs text-red-400\'>Error: Video failed to load. **Please confirm the file is named exactly spynr-short-demo.mp4 in your main repository branch.**</p>'">
+                                
+                                <!-- RAW CDN Link (Most reliable method) -->
+                                <source src="https://raw.githubusercontent.com/mattyanko/me/main/spynr-short-demo.mp4" type="video/mp4">
+                                
+                                <!-- GitHub Pages Link (Fallback) -->
+                                <source src="https://mattyanko.github.io/me/spynr-short-demo.mp4" type="video/mp4">
+                                
                                 Your browser does not support the video tag.
                             </video>
                         </div>
