@@ -9,14 +9,15 @@
     <!-- Load Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Custom styles for the roadmap */
+        /* Custom styles for the roadmap timeline */
         .roadmap-container {
             position: relative;
         }
         .roadmap-item {
             position: relative;
             padding-left: 2rem;
-            border-left: 3px solid #6366f1; /* Primary color line */
+            /* New Primary Orange color for the timeline line */
+            border-left: 3px solid #F97316;
             padding-bottom: 2.5rem;
         }
         .roadmap-item:last-child {
@@ -29,9 +30,11 @@
             top: 0;
             width: 18px;
             height: 18px;
-            background-color: #6366f1; /* Primary color dot */
+            /* New Primary Orange color dot */
+            background-color: #F97316;
             border-radius: 50%;
-            border: 3px solid #1f2937; /* Dark background color */
+            /* Border uses the new light background color for contrast */
+            border: 3px solid #F8FAFC; 
             z-index: 10;
         }
         /* Style for the tab content */
@@ -47,10 +50,11 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#6366f1', // Indigo for accents
-                        background: '#1f2937', // Dark background
-                        textlight: '#f9fafb', // Light text
-                        textmuted: '#9ca3af', // Muted text
+                        primary: '#F97316', // Vibrant Orange accent (Tailwind Orange 600)
+                        background: '#F8FAFC', // Very light background (Slate 50)
+                        card: '#FFFFFF', // White for cards (provides depth against light background)
+                        textlight: '#0F172A', // Dark text (Slate 900)
+                        textmuted: '#475569', // Muted text (Slate 600)
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -60,14 +64,17 @@
         }
     </script>
 </head>
+<!-- Switched to light mode class variables -->
 <body class="bg-background text-textlight font-sans antialiased min-h-screen">
 
     <!-- Header & Navigation -->
-    <header class="sticky top-0 bg-background/95 backdrop-blur-sm z-50 shadow-lg">
+    <!-- Updated background and added a subtle gray border -->
+    <header class="sticky top-0 bg-background/95 backdrop-blur-sm z-50 shadow-lg border-b border-gray-200">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <nav class="flex justify-between items-center">
                 <div class="text-xl font-bold text-primary">My Name / Sr. UX Researcher</div>
                 <div class="flex space-x-2 sm:space-x-4" id="nav-tabs">
+                    <!-- Tabs use the updated text colors and hover states -->
                     <button class="tab-button px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium rounded-lg transition duration-150 ease-in-out hover:bg-primary/20 text-textlight" data-tab="about">About Me</button>
                     <button class="tab-button px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium rounded-lg transition duration-150 ease-in-out hover:bg-primary/20 text-textlight" data-tab="analysis">Method & Stats</button>
                     <button class="tab-button px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium rounded-lg transition duration-150 ease-in-out hover:bg-primary/20 text-textlight" data-tab="projects">More Cool Stuff</button>
@@ -85,37 +92,53 @@
                 
                 <!-- Left Column: Image and Pitch -->
                 <div class="md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left">
-                    <div class="w-32 h-32 bg-gray-700 rounded-full flex items-center justify-center mb-6 border-4 border-primary shadow-xl">
-                        <svg class="w-16 h-16 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <!-- PROFILE PICTURE CONTAINER - Image src updated to use the provided URL -->
+                    <div class="w-32 h-32 bg-card rounded-full flex items-center justify-center mb-6 border-4 border-primary shadow-2xl overflow-hidden">
+                        <img 
+                            src="https://mattyanko.github.io/me/me.jpeg" 
+                            alt="Professional Profile Picture of [My Name]" 
+                            class="w-full h-full object-cover"
+                        >
                     </div>
+                    <!-- END PROFILE PICTURE CONTAINER -->
                     <h1 class="text-3xl sm:text-4xl font-extrabold text-textlight mb-3">Senior UX Research Lead</h1>
                     <p class="text-lg text-textmuted mb-6">
                         I am a **Senior UX Researcher & Human Factors Scientist** specializing in translating **behavioral science (PhD)** and **advanced statistics** into product strategy, leading measurable engagement boosts across high-traffic platforms like **Twitch, EA, and Google.**
                     </p>
                     
-                    <!-- Contact/Social Links -->
+                    <!-- Contact/Social Links - UPDATED: Email and Phone removed, Google Scholar added -->
                     <div class="flex flex-wrap justify-center md:justify-start space-x-4 text-primary text-sm font-medium">
-                        <a href="mailto:Email@gmail.com" class="hover:text-primary/70 flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-1"></i> Email</a>
-                        <a href="phone number" class="hover:text-primary/70 flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-1"></i> Phone</a>
-                        <a href="LinkedIn: link" target="_blank" class="hover:text-primary/70 flex items-center"><i data-lucide="linkedin" class="w-4 h-4 mr-1"></i> LinkedIn</a>
+                        
+                        <!-- 1. LinkedIn Link (full URL) -->
+                        <a href="https://linkedin.com/in/matthew-yanko" target="_blank" class="hover:text-primary/70 flex items-center">
+                            <i data-lucide="linkedin" class="w-4 h-4 mr-1"></i> LinkedIn Profile
+                        </a>
+                        
+                        <!-- 2. Google Scholar Link (Added) -->
+                        <a href="https://scholar.google.ca/citations?user=7-PV-pQAAAAJ&hl=en target="_blank" class="hover:text-primary/70 flex items-center">
+                            <i data-lucide="graduation-cap" class="w-4 h-4 mr-1"></i> Google Scholar
+                        </a>
+
                     </div>
                 </div>
 
                 <!-- Right Column: Visual Career Roadmap -->
                 <div class="md:col-span-2">
-                    <h2 class="text-2xl font-bold text-textlight mb-6 border-b border-gray-700 pb-2">Career Roadmap & Impact</h2>
+                    <!-- Border color changed to gray-200 for light mode -->
+                    <h2 class="text-2xl font-bold text-textlight mb-6 border-b border-gray-200 pb-2">Career Roadmap & Impact</h2>
                     
                     <div class="roadmap-container">
                         
                         <!-- Twitch -->
                         <div class="roadmap-item">
                             <div class="roadmap-dot"></div>
-                            <div class="bg-gray-800 p-4 rounded-lg shadow-xl hover:shadow-primary/50 transition duration-300">
+                            <!-- Card background uses new white 'card' variable -->
+                            <div class="bg-card p-4 rounded-xl shadow-lg hover:shadow-primary/50 transition duration-300">
                                 <h3 class="text-xl font-semibold text-primary mb-1">Twitch <span class="text-sm font-normal text-textmuted">(Senior UXR)</span></h3>
                                 <p class="text-sm text-textmuted mb-2">March 2023 - PRESENT</p>
                                 <ul class="list-none space-y-1 text-sm text-textlight">
-                                    <li class="flex items-start"><i data-lucide="zap" class="w-4 h-4 text-yellow-400 mt-0.5 mr-2 flex-shrink-0"></i> **Algorithm Strategy:** Led designs and MaxDiff for algorithms predicting user video preferences, **boosting mobile feed engagement**.</li>
-                                    <li class="flex items-start"><i data-lucide="activity" class="w-4 h-4 text-yellow-400 mt-0.5 mr-2 flex-shrink-0"></i> **Sentiment Dashboard:** Directed initiative to integrate real-time in-app sentiment feedback for quantifiable user satisfaction metrics.</li>
+                                    <li class="flex items-start"><i data-lucide="zap" class="w-4 h-4 text-yellow-500 mt-0.5 mr-2 flex-shrink-0"></i> **Algorithm Strategy:** Led designs and MaxDiff for algorithms predicting user video preferences, **boosting mobile feed engagement**.</li>
+                                    <li class="flex items-start"><i data-lucide="activity" class="w-4 h-4 text-yellow-500 mt-0.5 mr-2 flex-shrink-0"></i> **Sentiment Dashboard:** Directed initiative to integrate real-time in-app sentiment feedback for quantifiable user satisfaction metrics.</li>
                                 </ul>
                             </div>
                         </div>
@@ -123,12 +146,13 @@
                         <!-- Electronic Arts -->
                         <div class="roadmap-item">
                             <div class="roadmap-dot"></div>
-                            <div class="bg-gray-800 p-4 rounded-lg shadow-xl hover:shadow-primary/50 transition duration-300">
+                            <div class="bg-card p-4 rounded-xl shadow-lg hover:shadow-primary/50 transition duration-300">
                                 <h3 class="text-xl font-semibold text-primary mb-1">Electronic Arts <span class="text-sm font-normal text-textmuted">(Sr. UXR / Lead Strategist)</span></h3>
                                 <p class="text-sm text-textmuted mb-2">Jan 2018 - March 2023</p>
+                            <!-- Note: Changed color of bullets to use Orange, since we are moving away from the Teal/Green association. -->
                                 <ul class="list-none space-y-1 text-sm text-textlight">
-                                    <li class="flex items-start"><i data-lucide="cpu" class="w-4 h-4 text-green-400 mt-0.5 mr-2 flex-shrink-0"></i> **Turing Test / AI Realism:** Pioneered a custom Turing test method for assessing sports AI realism and advanced research techniques across studios.</li>
-                                    <li class="flex items-start"><i data-lucide="users" class="w-4 h-4 text-green-400 mt-0.5 mr-2 flex-shrink-0"></i> **Fandom Study:** Led comprehensive research on social interactions and the nature of sports fandom, influencing game development.</li>
+                                    <li class="flex items-start"><i data-lucide="cpu" class="w-4 h-4 text-primary mt-0.5 mr-2 flex-shrink-0"></i> **Turing Test / AI Realism:** Pioneered a custom Turing test method for assessing sports AI realism and advanced research techniques across studios.</li>
+                                    <li class="flex items-start"><i data-lucide="users" class="w-4 h-4 text-primary mt-0.5 mr-2 flex-shrink-0"></i> **Fandom Study:** Led comprehensive research on social interactions and the nature of sports fandom, influencing game development.</li>
                                 </ul>
                             </div>
                         </div>
@@ -136,12 +160,12 @@
                         <!-- Google (Contract) -->
                         <div class="roadmap-item">
                             <div class="roadmap-dot"></div>
-                            <div class="bg-gray-800 p-4 rounded-lg shadow-xl hover:shadow-primary/50 transition duration-300">
+                            <div class="bg-card p-4 rounded-xl shadow-lg hover:shadow-primary/50 transition duration-300">
                                 <h3 class="text-xl font-semibold text-primary mb-1">Google (Contract) <span class="text-sm font-normal text-textmuted">(UX Researcher, VR)</span></h3>
                                 <p class="text-sm text-textmuted mb-2">Jan 2017 - Jan 2018</p>
                                 <ul class="list-none space-y-1 text-sm text-textlight">
-                                    <li class="flex items-start"><i data-lucide="headset" class="w-4 h-4 text-red-400 mt-0.5 mr-2 flex-shrink-0"></i> **Physical Comfort:** Converted research findings into design improvements for VR devices covering comfort, fit, and vestibular comfort (simulator sickness).</li>
-                                    <li class="flex items-start"><i data-lucide="eye" class="w-4 h-4 text-red-400 mt-0.5 mr-2 flex-shrink-0"></i> **Image Quality:** Designed and executed research to optimize optical distortion correction, significantly improving image quality.</li>
+                                    <li class="flex items-start"><i data-lucide="headset" class="w-4 h-4 text-rose-500 mt-0.5 mr-2 flex-shrink-0"></i> **Physical Comfort:** Converted research findings into design improvements for VR devices covering comfort, fit, and vestibular comfort (simulator sickness).</li>
+                                    <li class="flex items-start"><i data-lucide="eye" class="w-4 h-4 text-rose-500 mt-0.5 mr-2 flex-shrink-0"></i> **Image Quality:** Designed and executed research to optimize optical distortion correction, significantly improving image quality.</li>
                                 </ul>
                             </div>
                         </div>
@@ -149,11 +173,11 @@
                         <!-- MEA Forensic -->
                         <div class="roadmap-item">
                             <div class="roadmap-dot"></div>
-                            <div class="bg-gray-800 p-4 rounded-lg shadow-xl hover:shadow-primary/50 transition duration-300">
+                            <div class="bg-card p-4 rounded-xl shadow-lg hover:shadow-primary/50 transition duration-300">
                                 <h3 class="text-xl font-semibold text-primary mb-1">MEA Forensic Engineers <span class="text-sm font-normal text-textmuted">(Human Factors Scientist)</span></h3>
                                 <p class="text-sm text-textmuted mb-2">Dec 2013 - Jan 2017</p>
                                 <ul class="list-none space-y-1 text-sm text-textlight">
-                                    <li class="flex items-start"><i data-lucide="gavel" class="w-4 h-4 text-blue-400 mt-0.5 mr-2 flex-shrink-0"></i> **Expert Witness:** Provided consulting and expert witness testimony for litigation regarding Human Factors, Usability, Perception, and User-error.</li>
+                                    <li class="flex items-start"><i data-lucide="gavel" class="w-4 h-4 text-sky-500 mt-0.5 mr-2 flex-shrink-0"></i> **Expert Witness:** Provided consulting and expert witness testimony for litigation regarding Human Factors, Usability, Perception, and User-error.</li>
                                 </ul>
                             </div>
                         </div>
@@ -169,8 +193,8 @@
             <p class="text-lg text-textmuted mb-8">My foundation is a PhD in Experimental Psychology, enabling me to design rigorous studies, lead advanced statistical analysis, and mentor UXR teams on best practices and scientific rigor.</p>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1: Advanced Statistics -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                <!-- Card 1: Advanced Statistics - Background and Border updated -->
+                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
                     <i data-lucide="bar-chart-3" class="w-8 h-8 text-primary mb-3"></i>
                     <h3 class="text-xl font-semibold text-textlight mb-2">Advanced Statistics</h3>
                     <ul class="list-disc list-inside text-textlight/80 text-sm space-y-1">
@@ -179,8 +203,8 @@
                         <li>Regression (Linear, Multinomial Logistic) & ANOVA/ANCOVA</li>
                     </ul>
                 </div>
-                <!-- Card 2: Experimental Rigor -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                <!-- Card 2: Experimental Rigor - Background and Border updated -->
+                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
                     <i data-lucide="flask-conical" class="w-8 h-8 text-primary mb-3"></i>
                     <h3 class="text-xl font-semibold text-textlight mb-2">Experimental Rigor</h3>
                     <ul class="list-disc list-inside text-textlight/80 text-sm space-y-1">
@@ -189,8 +213,8 @@
                         <li>In-Lab Testing (Qual/Quant) & Benchmarking</li>
                     </ul>
                 </div>
-                <!-- Card 3: Technical Toolbox -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                <!-- Card 3: Technical Toolbox - Background and Border updated -->
+                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
                     <i data-lucide="code" class="w-8 h-8 text-primary mb-3"></i>
                     <h3 class="text-xl font-semibold text-textlight mb-2">Technical Toolbox</h3>
                     <ul class="list-disc list-inside text-textlight/80 text-sm space-y-1">
@@ -199,8 +223,8 @@
                         <li>EEG (Brain Activity) & Eye-Tracking Technology</li>
                     </ul>
                 </div>
-                <!-- Card 4: Specialized HMI Methods -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                <!-- Card 4: Specialized HMI Methods - Background and Border updated -->
+                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
                     <i data-lucide="car" class="w-8 h-8 text-primary mb-3"></i>
                     <h3 class="text-xl font-semibold text-textlight mb-2">Specialized HMI Methods</h3>
                     <ul class="list-disc list-inside text-textlight/80 text-sm space-y-1">
@@ -219,32 +243,48 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-                <!-- Card 1: Fitts' Framework & Hardware -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                <!-- Card 1: Fitts' Framework & Hardware - Background and Border updated -->
+                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
                     <div class="flex items-start mb-4">
                         <i data-lucide="mouse" class="w-8 h-8 text-primary mr-3 flex-shrink-0"></i>
                         <h3 class="text-xl font-semibold text-textlight">Fitts' Framework Study & Compensatory Mouse</h3>
                     </div>
                     <p class="text-sm text-textmuted mb-4">Wrote an application to explore human compensation for unexpected control/display mappings. This led to the creation of **A New Computer Mouse** with microchip hardware designed to auto-compensate for incorrect orientation relative to the screen.</p>
                     
-                    <!-- Direct Link/Image Placeholder for Video -->
-                    <a href="https://youtube.com/shorts/c029mJSSwCU?feature=share" target="_blank" class="block rounded-lg overflow-hidden mb-3 relative group">
-                        <!-- Placeholder Image - You should replace this with a screenshot of your video! -->
-                        <img src="https://placehold.co/600x337/3b4452/ffffff?text=Video+Click+to+Watch" alt="Click to watch Fitts' Framework demo video" class="w-full h-auto transition-transform duration-300 group-hover:scale-[1.03]" onerror="this.src='https://placehold.co/600x337/3b4452/ffffff?text=Video+Click+to+Watch'">
-                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <i data-lucide="play-circle" class="w-16 h-16 text-white/90"></i>
+                    <!-- YouTube Thumbnail Styling Adjusted -->
+                    <a
+                      href="https://www.youtube.com/watch?v=c029mJSSwCU"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="group block max-w-xl mx-auto rounded-xl overflow-hidden shadow-xl hover:shadow-primary/70 transition"
+                    >
+                      <div class="relative pb-[56.25%] bg-white">
+                        <img
+                          src="https://img.youtube.com/vi/c029mJSSwCU/hqdefault.jpg"
+                          alt="Video thumbnail"
+                          class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition"
+                        />
+                        <div class="absolute inset-0 flex items-center justify-center">
+                          <div class="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center group-hover:scale-110 transition">
+                            <!-- Play button color adjusted to contrast with Orange -->
+                            <div class="ml-1 border-l-[16px] border-l-primary border-y-[10px] border-y-transparent"></div>
+                          </div>
                         </div>
+                      </div>
+                      <div class="px-4 py-3 bg-gray-100 text-textlight text-sm font-medium hover:bg-gray-200">
+                        Watch on YouTube
+                      </div>
                     </a>
 
-                    <a href="https://journals.sagepub.com/doi/abs/10.1177/1071181319631131" target="_blank" class="text-primary hover:text-primary/70 text-sm font-medium flex items-center">
+                    <a href="https://journals.sagepub.com/doi/abs/10.1177/1071181319631131" target="_blank" class="text-primary hover:text-primary/70 text-sm font-medium flex items-center mt-3">
                         <i data-lucide="external-link" class="w-4 h-4 mr-1"></i> Link to Paper
                     </a>
                 </div>
 
                 <!-- Card 2: Personal Software Projects -->
                 <div class="grid grid-rows-2 gap-6">
-                    <!-- Project 1: Ambient -->
-                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                    <!-- Project 1: Ambient - Background and Border updated -->
+                    <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
                         <div class="flex items-start mb-3">
                             <i data-lucide="radio" class="w-8 h-8 text-primary mr-3 flex-shrink-0"></i>
                             <h3 class="text-xl font-semibold text-textlight">Ambient Video Chat App</h3>
@@ -252,8 +292,8 @@
                         <p class="text-sm text-textmuted">Developed a video chat application that enhances social presence by allowing users to play customizable ambient soundscapes (office sounds, pub noise, etc.) in their virtual rooms.</p>
                     </div>
 
-                    <!-- Project 2: Hotseet -->
-                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                    <!-- Project 2: Hotseet - Background and Border updated -->
+                    <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
                         <div class="flex items-start mb-3">
                             <i data-lucide="coffee" class="w-8 h-8 text-primary mr-3 flex-shrink-0"></i>
                             <h3 class="text-xl font-semibold text-textlight">Hotseet Status App</h3>
@@ -262,8 +302,8 @@
                     </div>
                 </div>
 
-                <!-- Card 3: Social & Engagement Mastery -->
-                <div class="lg:col-span-2 bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                <!-- Card 3: Social & Engagement Mastery - Background and Border updated -->
+                <div class="lg:col-span-2 bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
                     <div class="flex items-start mb-3">
                         <i data-lucide="megaphone" class="w-8 h-8 text-primary mr-3 flex-shrink-0"></i>
                         <h3 class="text-xl font-semibold text-textlight">Social Engagement Mastery (200k+ Followers)</h3>
@@ -288,13 +328,15 @@
             tabContents.forEach(content => {
                 content.classList.remove('active');
             });
+            // Update button styles for light mode
             tabButtons.forEach(button => {
                 button.classList.remove('bg-primary/50', 'text-textlight');
-                button.classList.add('text-textmuted');
+                button.classList.add('text-textmuted', 'hover:bg-gray-100');
             });
 
             document.getElementById(`${targetTab}-content`).classList.add('active');
-            document.querySelector(`[data-tab="${targetTab}"]`).classList.remove('text-textmuted');
+            // Active button should have the primary background color effect
+            document.querySelector(`[data-tab="${targetTab}"]`).classList.remove('text-textmuted', 'hover:bg-gray-100');
             document.querySelector(`[data-tab="${targetTab}"]`).classList.add('bg-primary/50', 'text-textlight');
         };
 
