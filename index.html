@@ -1,0 +1,417 @@
+  <!DOCTYPE ahtml>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Name - Senior UX Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Define a consistent color scheme */
+        :root {
+            --primary-color: #3B82F6; /* Tailwind Blue-500 */
+            --dark-bg: #0F172A; /* Deep Blue/Black (Body Background) */
+            --card-bg: #1E293B; /* Slightly Lighter Dark (Card Background) */
+            --text-color: #F8FAFC;
+            --road-color: #334155; /* Gray for the road line */
+            --road-accent: #60A5FA; /* Light Blue for the path */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+        /* Fixed header for persistent navigation */
+        .fixed-header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid #334155;
+            z-index: 10;
+        }
+        /* Content padding below the fixed header */
+        .content-area {
+            padding-top: 6rem; /* Space for fixed header */
+        }
+
+        /* Nav Link Style */
+        .nav-link.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* --- STABLE VISUAL ROADMAP STYLES --- */
+        .roadmap-container {
+            position: relative;
+            padding-left: 1.5rem; /* Space for the vertical line */
+        }
+
+        .roadmap-path {
+            position: relative;
+            padding-bottom: 2rem; /* Space between items */
+            border-left: 2px solid var(--road-color); /* The main road line */
+            margin-left: 0.5rem; /* Aligning content next to the line */
+        }
+
+        .roadmap-path::before {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background-color: var(--road-accent);
+            border: 3px solid var(--dark-bg);
+            border-radius: 50%;
+            top: 1rem;
+            left: -8px; /* Positioned directly over the vertical line */
+            z-index: 5;
+            box-shadow: 0 0 0 2px var(--road-accent);
+        }
+
+        .timeline-item-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-left: 1.5rem; /* Pushes the card slightly away from the line */
+        }
+
+        .timeline-item-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Final Marker (to remove the border-left for the last item) */
+        .roadmap-path:last-child {
+            border-left: none;
+            padding-bottom: 0;
+        }
+        /* --- END ROADMAP STYLES --- */
+
+        /* General styles from previous versions retained */
+        .grid-cols-1, .sm\:grid-cols-2, .lg\:grid-cols-3 {
+            display: grid;
+        }
+    </style>
+</head>
+<body onload="lucide.createIcons(); showTab('about');">
+
+    <!-- FIXED TOP NAVIGATION BAR -->
+    <header class="fixed-header fixed w-full top-0 shadow-xl">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center p-4">
+
+            <!-- Logo/Name -->
+            <div class="text-xl font-extrabold mb-3 sm:mb-0">
+                <span class="text-white">My</span><span class="text-[var(--primary-color)]">Portfolio</span>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex space-x-6 text-sm font-medium">
+                <button class="nav-link transition duration-200 hover:text-[var(--primary-color)]"
+                        data-tab="about" onclick="showTab('about')">
+                    <i data-lucide="user" class="w-4 h-4 inline mr-1"></i> About Me
+                </button>
+                <button class="nav-link transition duration-200 hover:text-[var(--primary-color)]"
+                        data-tab="analysis" onclick="showTab('analysis')">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4 inline mr-1"></i> Method & Stats
+                </button>
+                <button class="nav-link transition duration-200 hover:text-[var(--primary-color)]"
+                        data-tab="projects" onclick="showTab('projects')">
+                    <i data-lucide="box" class="w-4 h-4 inline mr-1"></i> More Cool Stuff
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <main class="content-area max-w-4xl mx-auto p-4 sm:p-8">
+
+        <!-- 1. ABOUT ME TAB -->
+        <section id="about" class="tab-content" style="display: none;">
+            <div class="space-y-10">
+
+                <!-- PROFESSIONAL PITCH & CONTACT -->
+                <div class="flex flex-col lg:flex-row items-center lg:items-start p-6 rounded-xl bg-[var(--card-bg)] shadow-2xl border-t-4" style="border-color: var(--primary-color);">
+                    <!-- Placeholder Image -->
+                    <div class="w-32 h-32 rounded-full bg-gray-600 flex items-center justify-center text-xs font-semibold text-gray-400 flex-shrink-0 mb-6 lg:mb-0 lg:mr-8 border-4 border-white" style="border-color: var(--primary-color);">
+                        [Your Photo]
+                    </div>
+                    <!-- Intro Text & Contact -->
+                    <div class="flex-grow">
+                        <h2 class="text-4xl font-extrabold text-white">My Name</h2>
+                        <h3 class="text-xl font-medium text-[var(--primary-color)] mb-4">Senior UX Researcher & Human Factors Consultant</h3>
+
+                        <p class="text-lg text-gray-300 mb-6">
+                            I am a **Senior UX Strategist** with a PhD in Experimental Psychology, specializing in translating **behavioral science** into product results. I lead cross-functional teams to solve complex problems in **algorithms, social behavior, and HMI** at a senior level.
+                        </p>
+
+                        <!-- Contact & External Links -->
+                        <div class="flex flex-wrap gap-4 text-sm text-gray-400">
+                            <a href="link" target="_blank" class="hover:text-white transition duration-200 flex items-center">
+                                <i data-lucide="linkedin" class="w-4 h-4 mr-1"></i> LinkedIn
+                            </a>
+                            <a href="mailto:Email@gmail.com" class="hover:text-white transition duration-200 flex items-center">
+                                <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Email
+                            </a>
+                             <a href="[Link to Google Scholar profile]" target="_blank" class="hover:text-white transition duration-200 flex items-center">
+                                <i data-lucide="graduation-cap" class="w-4 h-4 mr-1"></i> Google Scholar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VISUAL CAREER ROADMAP (Fixed) -->
+                <div>
+                    <h2 class="text-2xl font-bold text-white border-b pb-2 mb-6" style="border-color: var(--primary-color);">Results-Driven Career Path</h2>
+
+                    <div class="roadmap-container">
+                        <!-- Twitch -->
+                        <div class="roadmap-path">
+                            <div class="timeline-item-card">
+                                <p class="text-xs font-semibold text-gray-400 mb-1">March 2023 – PRESENT</p>
+                                <h3 class="text-xl font-bold text-[var(--primary-color)] mb-3">Twitch</h3>
+                                <p class="text-sm font-semibold text-white mb-3">Senior UX Researcher</p>
+                                <ul class="list-none text-xs text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <i data-lucide="trending-up" class="w-4 h-4 mr-2 text-green-400 flex-shrink-0"></i>
+                                        **Algorithm Strategy:** Boosted mobile feed engagement using LLM predictions alongside survey data.
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="gauge" class="w-4 h-4 mr-2 text-yellow-400 flex-shrink-0"></i>
+                                        **Real-Time Metrics:** Developed cross-functional dashboard for **sentiment analysis** and measurable UI improvements.
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="list-checks" class="w-4 h-4 mr-2 text-blue-400 flex-shrink-0"></i>
+                                        **Prioritization:** Utilized **MaxDiff** analysis to drive data-informed feature development.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Electronic Arts -->
+                        <div class="roadmap-path">
+                            <div class="timeline-item-card">
+                                <p class="text-xs font-semibold text-gray-400 mb-1">Jan 2018 – March 2023</p>
+                                <h3 class="text-xl font-bold text-[var(--primary-color)] mb-3">Electronic Arts</h3>
+                            <p class="text-sm font-semibold text-white mb-3">Lead Research Strategist</p>
+                                <ul class="list-none text-xs text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <i data-lucide="brain-circuit" class="w-4 h-4 mr-2 text-purple-400 flex-shrink-0"></i>
+                                        **Pioneering Methods:** Created a custom **Turing test for sports AI realism** and multiplayer testing methods.
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="users" class="w-4 h-4 mr-2 text-pink-400 flex-shrink-0"></i>
+                                        **Strategic Insight:** Led comprehensive study on **sports fandom** and social interactions, influencing all sports titles.
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="book-open" class="w-4 h-4 mr-2 text-indigo-400 flex-shrink-0"></i>
+                                        **Mentorship:** Built internal research standards and delivered statistical theory presentations to the global UXR team.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Google -->
+                        <div class="roadmap-path">
+                            <div class="timeline-item-card">
+                                <p class="text-xs font-semibold text-gray-400 mb-1">Jan 2017 – Jan 2018</p>
+                                <h3 class="text-xl font-bold text-[var(--primary-color)] mb-3">Google (Contract)</h3>
+                                <p class="text-sm font-semibold text-white mb-3">UX Researcher, VR</p>
+                                <ul class="list-none text-xs text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <i data-lucide="glasses" class="w-4 h-4 mr-2 text-orange-400 flex-shrink-0"></i>
+                                        **Hardware Comfort:** Optimized VR design for physical fit, weight distribution, and minimizing **simulator sickness**.
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="crosshair" class="w-4 h-4 mr-2 text-red-400 flex-shrink-0"></i>
+                                        **Perceptual UX:** Ran research to optimize optical distortion correction to improve VR image quality.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- MEA Forensic Engineers & Associates -->
+                        <div class="roadmap-path">
+                            <div class="timeline-item-card">
+                                <p class="text-xs font-semibold text-gray-400 mb-1">Dec 2013 – Jan 2017</p>
+                                <h3 class="text-xl font-bold text-[var(--primary-color)] mb-3">MEA Forensic</h3>
+                                <p class="text-sm font-semibold text-white mb-3">Human Factors Scientist</p>
+                                <ul class="list-none text-xs text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <i data-lucide="gavel" class="w-4 h-4 mr-2 text-yellow-500 flex-shrink-0"></i>
+                                        **Expert Witness:** Provided consulting and expert testimony for litigation on **User-error**, Usability, and Perception.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Final Marker (Note: This is the last item, which is why it stops the vertical line) -->
+                        <div class="roadmap-path">
+                            <div class="timeline-item-card flex items-center justify-center bg-gray-700/50 text-gray-400 p-4">
+                                <i data-lucide="flag" class="w-6 h-6 mr-2"></i> PhD Completed
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ANALYSIS FOCUS TAB (Refined for Visual Scanning) -->
+        <section id="analysis" class="tab-content" style="display: none;">
+            <div class="space-y-10">
+                <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-6">Methodological Rigor & Statistical Depth</h2>
+
+                <!-- Quantitative Skills Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-b-4 border-purple-500">
+                        <i data-lucide="git-branch-plus" class="w-8 h-8 text-purple-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Advanced Modeling</h3>
+                        <p class="text-sm text-gray-400">Mastery of **Hierarchical Bayes** and **Random Forest** for predictive and segmentation analysis.</p>
+                    </div>
+
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-b-4 border-red-500">
+                        <i data-lucide="clipboard-list" class="w-8 h-8 text-red-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Prioritization (MaxDiff)</h3>
+                        <p class="text-sm text-gray-400">Expert in **MaxDiff analysis** to empirically prioritize features and guide product roadmaps.</p>
+                    </div>
+
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-b-4 border-green-500">
+                        <i data-lucide="code" class="w-8 h-8 text-green-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Statistical Programming</h3>
+                        <p class="text-sm text-gray-400">Advanced proficiency in **R** for complex data manipulation, visualization, and statistical reporting.</p>
+                    </div>
+
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-b-4 border-orange-500">
+                        <i data-lucide="eye" class="w-8 h-8 text-orange-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Perceptual Science</h3>
+                        <p class="text-sm text-gray-400">PhD-level background in **Psychophysics** (Method of Limits/Constant Stimuli) and Visual Attention.</p>
+                    </div>
+
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-b-4 border-cyan-500">
+                        <i data-lucide="activity" class="w-8 h-8 text-cyan-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Physiological Measures</h3>
+                        <p class="text-sm text-gray-400">Experience with **Eye-tracking** and **EEG** to quantify visual behavior and cognitive load.</p>
+                    </div>
+
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-b-4 border-indigo-500">
+                        <i data-lucide="zap" class="w-8 h-8 text-indigo-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Experimental Rigor</h3>
+                        <p class="text-sm text-gray-400">Expertise in complex experimental design, including **A:B Testing** and driving simulator studies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PROJECTS & INVENTION TAB (Updated) -->
+        <section id="projects" class="tab-content" style="display: none;">
+            <div class="space-y-10">
+                <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-6">More Cool Stuff (Projects, Hardware & Behavior)</h2>
+
+                <!-- Project Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                    <!-- HMI Invention: Fitts' Framework & Video -->
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-l-4 border-blue-400">
+                        <i data-lucide="mouse-pointer-2" class="w-8 h-8 text-blue-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Compensatory Mouse & Fitts' Law</h3>
+                        <p class="text-sm text-gray-400 mb-4">
+                            **Hardware/HMI:** Built custom hardware to compensate for incorrectly oriented input devices. Published research on human compensation for unexpected control/display mappings.
+                        </p>
+                        
+                        <!-- Embedded Video - FIXED SOURCE -->
+                        <div class="mb-4 max-w-xs">
+                            <video controls class="w-full rounded-md shadow-md" 
+                                src="https://mattyanko.github.io/me/Spynr%2520short%2520demo.mp4" 
+                                poster="https://placehold.co/400x225/334155/ffffff?text=Video+Demo+Loading" 
+                                onerror="this.outerHTML='<p class=\'text-xs text-red-400\'>Error: Video failed to load. Please ensure the file is publicly hosted on GitHub and the URL is case-sensitive and correctly encoded (no spaces).</p>'">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        
+                        <a href="https://journals.sagepub.com/doi/abs/10.1177/1071181319631131" target="_blank" class="text-sm font-medium text-blue-400 hover:text-blue-300 flex items-center">
+                            <i data-lucide="external-link" class="w-4 h-4 mr-1"></i> Link to Paper
+                        </a>
+                    </div>
+
+                    <!-- Hotseet App (Restaurant Status) -->
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-l-4 border-yellow-400">
+                        <i data-lucide="utensils" class="w-8 h-8 text-yellow-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Hotseet (Restaurant Status App)</h3>
+                        <p class="text-sm text-gray-400">
+                            **Applied UX:** Designed an app that uses **crowdsourced self-report data** to provide real-time restaurant status updates, including **wait times, events, and specials**. Focus on reliable, social data collection.
+                        </p>
+                    </div>
+                    
+                    <!-- Ambient App (Video Chat Sounds) -->
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-l-4 border-cyan-400">
+                        <i data-lucide="mic-2" class="w-8 h-8 text-cyan-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Ambient (Video Chat App)</h3>
+                        <p class="text-sm text-gray-400">
+                            **Social UX:** Created a video chat platform that allows users to play **ambient sounds** (office typing, pub chatter) to enhance social presence and set the mood for virtual meetings or chats.
+                        </p>
+                    </div>
+                    
+                    <!-- TikTok Engagement -->
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-l-4 border-pink-400">
+                        <i data-lucide="rocket" class="w-8 h-8 text-pink-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Viral Attention & Engagement</h3>
+                        <p class="text-sm text-gray-400">
+                            **Applied Psychology:** Maintain a **200k+ follower base on TikTok**. Directly applies principles of visual attention and rapid communication to test digital engagement loops.
+                        </p>
+                    </div>
+
+                    <!-- Carnival Experience -->
+                    <div class="p-6 rounded-xl bg-[var(--card-bg)] shadow-lg border-l-4 border-lime-400">
+                        <i data-lucide="tent" class="w-8 h-8 text-lime-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold mb-2">Carnival Behavioral Insight</h3>
+                        <p class="text-sm text-gray-400">
+                            **Human Factors:** Unique background traveling with the carnival (age 10-20), mastering the behavioral psychology behind systems like Skee-ball and Whack-a-Mole.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Academic Research Summary -->
+                <div class="p-6 rounded-xl bg-gray-800/50 shadow-inner">
+                     <h3 class="text-xl font-semibold mb-4 flex items-center text-[var(--primary-color)]">
+                        <i data-lucide="graduation-cap" class="w-5 h-5 mr-2"></i> Academic Research Summary
+                    </h3>
+                    <p class="text-sm text-gray-400">
+                        Managed a Visual Attention Lab, hired 50+ research assistants, and taught 9 university lectures (recipient of a national teaching award). Multiple publications in **Visual Attention, Perception, Driving Performance**, and **Psychophysics**.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JAVASCRIPT FOR TAB SWITCHING -->
+    <script>
+        function showTab(tabId) {
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(section => {
+                section.style.display = 'none';
+            });
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show the selected tab content
+            const activeTab = document.getElementById(tabId);
+            if (activeTab) {
+                activeTab.style.display = 'block';
+            }
+
+            // Set the active class on the clicked link
+            const activeLink = document.querySelector(`.nav-link[data-tab="${tabId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
