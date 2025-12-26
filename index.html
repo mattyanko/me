@@ -1,48 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My name - Senior UX Researcher & Human Factors Consultant</title>
-    <!-- Load Tailwind CSS -->
+    <title>Matthew R. Yanko - Senior UX Researcher</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Custom styles for the roadmap timeline */
-        .roadmap-container {
-            position: relative;
+        /* Custom Utilities */
+        .glass-nav {
+            background: rgba(248, 250, 252, 0.9);
+            backdrop-filter: blur(10px);
         }
-        .roadmap-item {
-            position: relative;
-            padding-left: 2rem;
-            /* New Primary Orange color for the timeline line */
-            border-left: 3px solid #F97316;
-            padding-bottom: 2.5rem;
-        }
-        .roadmap-item:last-child {
-            border-left: none; /* End the line */
-            padding-bottom: 0;
-        }
-        .roadmap-dot {
+        
+        /* Timeline specific styles */
+        .timeline-line {
             position: absolute;
-            left: -9px; /* Position the dot over the line */
+            left: 50%;
             top: 0;
-            width: 18px;
-            height: 18px;
-            /* New Primary Orange color dot */
-            background-color: #F97316;
-            border-radius: 50%;
-            /* Border uses the new light background color for contrast */
-            border: 3px solid #F8FAFC; 
-            z-index: 10;
+            bottom: 0;
+            width: 2px;
+            background-color: #E2E8F0; /* Slate 200 */
+            transform: translateX(-50%);
         }
-        /* Style for the tab content */
-        .tab-content {
-            display: none;
+        
+        /* Animation classes */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
         }
-        .tab-content.active {
-            display: block;
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
         }
     </style>
     <script>
@@ -50,11 +41,12 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#F97316', // Vibrant Orange accent (Tailwind Orange 600)
-                        background: '#F8FAFC', // Very light background (Slate 50)
-                        card: '#FFFFFF', // White for cards (provides depth against light background)
-                        textlight: '#0F172A', // Dark text (Slate 900)
-                        textmuted: '#475569', // Muted text (Slate 600)
+                        primary: '#F97316', // Orange 600
+                        primarydark: '#C2410C', // Orange 700
+                        background: '#F8FAFC', // Slate 50
+                        card: '#FFFFFF',
+                        textlight: '#0F172A', // Slate 900
+                        textmuted: '#475569', // Slate 600
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -64,286 +56,500 @@
         }
     </script>
 </head>
-<!-- Switched to light mode class variables -->
-<body class="bg-background text-textlight font-sans antialiased min-h-screen">
+<body class="bg-background text-textlight font-sans antialiased">
 
-    <!-- Header & Navigation -->
-    <!-- Updated background and added a subtle gray border -->
-    <header class="sticky top-0 bg-background/95 backdrop-blur-sm z-50 shadow-lg border-b border-gray-200">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <nav class="flex justify-between items-center">
-                <div class="text-xl font-bold text-primary">My Name / Sr. UX Researcher</div>
-                <div class="flex space-x-2 sm:space-x-4" id="nav-tabs">
-                    <!-- Tabs use the updated text colors and hover states -->
-                    <button class="tab-button px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium rounded-lg transition duration-150 ease-in-out hover:bg-primary/20 text-textlight" data-tab="about">About Me</button>
-                    <button class="tab-button px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium rounded-lg transition duration-150 ease-in-out hover:bg-primary/20 text-textlight" data-tab="analysis">Method & Stats</button>
-                    <button class="tab-button px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium rounded-lg transition duration-150 ease-in-out hover:bg-primary/20 text-textlight" data-tab="projects">More Cool Stuff</button>
+    <nav class="fixed top-0 w-full z-50 glass-nav border-b border-gray-200 shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-bold text-xl tracking-tight text-primary">Matthew R. Yanko</span>
                 </div>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Main Content Area -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        
-        <!-- About Me Tab -->
-        <section id="about-content" class="tab-content active">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 
-                <!-- Left Column: Image and Pitch -->
-                <div class="md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left">
-                    <!-- PROFILE PICTURE CONTAINER -->
-                    <div class="w-32 h-32 bg-card rounded-full flex items-center justify-center mb-6 border-4 border-primary shadow-2xl overflow-hidden">
+                <div class="hidden md:flex space-x-6">
+                    <a href="#about" class="nav-link text-sm font-medium text-textmuted hover:text-primary transition-colors">About</a>
+                    <a href="#roadmap" class="nav-link text-sm font-medium text-textmuted hover:text-primary transition-colors">Roadmap</a>
+                    <a href="#skills" class="nav-link text-sm font-medium text-textmuted hover:text-primary transition-colors">Methods</a>
+                    <a href="#cool-stuff" class="nav-link text-sm font-medium text-textmuted hover:text-primary transition-colors">Cool Stuff</a>
+                    <a href="#references" class="nav-link text-sm font-medium text-textmuted hover:text-primary transition-colors">References</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-textmuted hover:text-primary focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-card border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-textmuted hover:text-primary hover:bg-gray-50">About</a>
+                <a href="#roadmap" class="block px-3 py-2 rounded-md text-base font-medium text-textmuted hover:text-primary hover:bg-gray-50">Roadmap</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-textmuted hover:text-primary hover:bg-gray-50">Methods</a>
+                <a href="#cool-stuff" class="block px-3 py-2 rounded-md text-base font-medium text-textmuted hover:text-primary hover:bg-gray-50">Cool Stuff</a>
+                <a href="#references" class="block px-3 py-2 rounded-md text-base font-medium text-textmuted hover:text-primary hover:bg-gray-50">References</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="about" class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 text-center z-10 fade-in-section">
+            <div class="relative w-40 h-40 mx-auto mb-8">
+                <div class="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse"></div>
+                <img 
+                    src="https://mattyanko.github.io/me/me.jpeg" 
+                    alt="Matthew Yanko" 
+                    class="relative w-full h-full object-cover rounded-full border-4 border-card shadow-2xl"
+                >
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold text-textlight mb-6 tracking-tight">
+                Design backed by <span class="text-primary">Science.</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-textmuted mb-8 max-w-2xl mx-auto leading-relaxed">
+                I am a <strong>Senior UX Researcher</strong> & <strong>Human Factors Consultant</strong>. 
+                I translate <strong>PhD-level behavioral science</strong> and advanced analytics into product strategies that drive measurable engagement.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
+                <a href="https://linkedin.com/in/matthew-yanko" target="_blank" class="px-6 py-3 bg-primary text-white rounded-full font-semibold shadow-lg hover:bg-primarydark transition transform hover:-translate-y-1 flex items-center">
+                    <i data-lucide="linkedin" class="w-5 h-5 mr-2"></i> LinkedIn
+                </a>
+                <a href="https://scholar.google.ca/citations?user=7-PV-pQAAAAJ&hl=en" target="_blank" class="px-6 py-3 bg-white text-textlight border border-gray-200 rounded-full font-semibold shadow-md hover:shadow-lg transition transform hover:-translate-y-1 flex items-center">
+                    <i data-lucide="graduation-cap" class="w-5 h-5 mr-2"></i> Scholar Profile
+                </a>
+            </div>
+
+            <a href="#roadmap" class="animate-bounce inline-block text-textmuted hover:text-primary mt-8">
+                <span class="text-sm font-medium mb-1 block">The Journey</span>
+                <i data-lucide="arrow-down" class="w-6 h-6 mx-auto"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="roadmap" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-3xl font-bold text-textlight">Career Roadmap</h2>
+                <p class="text-textmuted mt-2">From Academic Labs to Enterprise Strategy</p>
+            </div>
+
+            <div class="relative">
+                <div class="timeline-line hidden md:block"></div>
+
+                <div class="space-y-12">
+
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center fade-in-section">
+                        <div class="hidden md:block"></div> 
+                        <div class="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-primary rounded-full border-4 border-white shadow"></div>
+                        <div class="bg-background p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-primary">Twitch</h3>
+                                <span class="text-xs font-semibold bg-primary/10 text-primary px-2 py-1 rounded">2023 - Present</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-textlight mb-3">Senior UX Researcher</h4>
+                            <ul class="space-y-3 text-sm text-textmuted">
+                                <li class="flex items-start">
+                                    <i data-lucide="zap" class="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Engagement Predictors:</strong> Discovered key predictors of viewer engagement through custom experimental design, which directly informed product roadmap priorities.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="target" class="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Engagement Taxonomy & ML:</strong> Created a new engagement taxonomy and conducted research to help Data Science validate ML predictions, driving measurable gains in engagement.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="smartphone" class="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Mobile Discovery:</strong> Rapidly optimized UI designs (e.g., tap-to-enter live streams) through mixed methods, delivering recommendations that improved the following page.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="bar-chart-2" class="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Real-Time Sentiment:</strong> Directed the integration of a standardized in-app survey for continuous real-time feedback. This data fed a dashboard to visualize how product updates impacted user sentiment.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center fade-in-section">
+                        <div class="bg-background p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-2 gap-2">
+                                <h3 class="text-xl font-bold text-primary">Electronic Arts</h3>
+                                <span class="text-xs font-semibold bg-gray-100 text-textmuted px-2 py-1 rounded">2022 - 2023</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-textlight mb-3">Lead Research Strategist</h4>
+                            <ul class="space-y-3 text-sm text-textmuted">
+                                <li class="flex items-start">
+                                    <i data-lucide="briefcase" class="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Gap Analysis:</strong> Developed and led a gap analysis evaluating collaboration between research and game development teams, strengthening integration and partnership strategies.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="users" class="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Strategic Partnerships:</strong> Built strong partnerships across product and central teams, guiding game leadership with research insights and promoting advanced research practices.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="graduation-cap" class="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Mentorship & Standards:</strong> Mentored researchers on survey scale standardization and delivered presentations on statistical theory and best practices to the global UXR team.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gray-300 rounded-full border-4 border-white shadow"></div>
+                        <div class="hidden md:block"></div>
+                    </div>
+
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center fade-in-section">
+                         <div class="hidden md:block"></div>
+                         <div class="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gray-300 rounded-full border-4 border-white shadow"></div>
+                        <div class="bg-background p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-2 gap-2">
+                                <h3 class="text-xl font-bold text-primary">Electronic Arts</h3>
+                                <span class="text-xs font-semibold bg-gray-100 text-textmuted px-2 py-1 rounded">2018 - 2022</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-textlight mb-3">Senior UX Researcher</h4>
+                            <ul class="space-y-3 text-sm text-textmuted">
+ 
+                                <li class="flex items-start">
+                                    <i data-lucide="users" class="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Fandom Study:</strong> Led comprehensive research on social interactions and sports fandom, influencing game development across all titles.</span>
+                                </li>
+								                               <li class="flex items-start">
+                                    <i data-lucide="cpu" class="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Turing Test / AI:</strong> Pioneered a custom Turing test method for assessing sports AI realism and introduced in-lab multiplayer testing.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center fade-in-section">
+                        <div class="bg-background p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-primary">Google (VR)</h3>
+                                <span class="text-xs font-semibold bg-gray-100 text-textmuted px-2 py-1 rounded">2017 - 2018</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-textlight mb-3">UX Researcher (Contract)</h4>
+                            <ul class="space-y-3 text-sm text-textmuted">
+                                <li class="flex items-start">
+                                    <i data-lucide="headset" class="w-4 h-4 text-rose-500 mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Physical Comfort:</strong> Converted research into design improvements for VR devices covering comfort, fit, and vestibular comfort (simulator sickness).</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="eye" class="w-4 h-4 text-rose-500 mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Image Quality:</strong> Designed research to optimize optical distortion correction, significantly improving image quality.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gray-300 rounded-full border-4 border-white shadow"></div>
+                         <div class="hidden md:block"></div>
+                    </div>
+
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center fade-in-section">
+                         <div class="hidden md:block"></div>
+                        <div class="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gray-300 rounded-full border-4 border-white shadow"></div>
+                        <div class="bg-background p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-2 gap-2">
+                                <h3 class="text-xl font-bold text-primary">MEA Forensic</h3>
+                                <span class="text-xs font-semibold bg-gray-100 text-textmuted px-2 py-1 rounded">2013 - 2017</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-textlight mb-3">Human Factors Scientist</h4>
+                            <ul class="space-y-3 text-sm text-textmuted">
+                                <li class="flex items-start">
+                                    <i data-lucide="gavel" class="w-4 h-4 text-sky-500 mt-1 mr-2 flex-shrink-0"></i> 
+                                    <span><strong class="text-textlight">Expert Witness:</strong> Provided consulting and expert witness testimony for litigation regarding Human Factors, Usability, Perception, and User-error.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 bg-background border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-3xl font-bold text-textlight">Methods & Statistics</h2>
+                <p class="text-textmuted mt-2">Quantitative Rigor meets Qualitative Insight</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6">
+                
+                <div class="md:col-span-2 md:row-span-2 bg-white p-8 rounded-3xl shadow-lg border border-gray-100 flex flex-col justify-center fade-in-section">
+                    <div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="bar-chart-2" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-textlight mb-4">Advanced Statistics</h3>
+                    <p class="text-textmuted mb-6">Specialist in translating complex datasets into clear strategy.</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-primary"></span>
+                            <span class="text-sm font-medium text-textlight">MaxDiff & Hierarchical Bayes</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-primary"></span>
+                            <span class="text-sm font-medium text-textlight">Random Forest & Cluster Analysis</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-primary"></span>
+                            <span class="text-sm font-medium text-textlight">Regression (Linear, Logistic)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-primary"></span>
+                            <span class="text-sm font-medium text-textlight">ANOVA / ANCOVA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-gray-100 fade-in-section">
+                    <h3 class="text-lg font-bold text-textlight mb-4 flex items-center">
+                        <i data-lucide="code" class="w-5 h-5 mr-2 text-textmuted"></i> Technical Toolbox
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-100 text-textlight rounded-lg text-sm font-medium">R Programming</span>
+                        <span class="px-3 py-1 bg-gray-100 text-textlight rounded-lg text-sm font-medium">SPSS</span>
+                        <span class="px-3 py-1 bg-gray-100 text-textlight rounded-lg text-sm font-medium">JASP</span>
+                        <span class="px-3 py-1 bg-gray-100 text-textlight rounded-lg text-sm font-medium">Qualtrics</span>
+                        <span class="px-3 py-1 bg-gray-100 text-textlight rounded-lg text-sm font-medium">UserTesting</span>
+                        <span class="px-3 py-1 bg-gray-100 text-textlight rounded-lg text-sm font-medium">Alchemer</span>
+                        <span class="px-3 py-1 bg-gray-100 text-textlight rounded-lg text-sm font-medium">Eye-Tracking</span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-1 bg-white p-6 rounded-3xl shadow-sm border border-gray-100 fade-in-section">
+                    <h3 class="text-lg font-bold text-textlight mb-3">Experimental</h3>
+                    <ul class="text-sm text-textmuted space-y-2">
+                        <li>• Psychophysics</li>
+                        <li>• Method of Limits</li>
+                        <li>• Visual Attention</li>
+                        <li>• A/B testing</li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-1 bg-white p-6 rounded-3xl shadow-sm border border-gray-100 fade-in-section">
+                    <h3 class="text-lg font-bold text-textlight mb-3">HMI</h3>
+                    <ul class="text-sm text-textmuted space-y-2">
+                        <li>• Driving Sims</li>
+                        <li>• VR Comfort</li>
+                        <li>• Turing Tests</li>
+                        <li>• Multiplayer testing</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="cool-stuff" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-3xl font-bold text-textlight">More Cool Stuff</h2>
+                <p class="text-textmuted mt-2">Hardware, Software & Social Experiments</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+    
+                <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col fade-in-section">
+                    <div class="h-64 bg-gray-100 relative group">
                         <img 
-                            src="https://mattyanko.github.io/me/me.jpeg" 
-                            alt="Professional Profile Picture of [My Name]" 
+                            src="https://mattyanko.github.io/me/spynr-demo.gif" 
+                            alt="Compensatory Mouse" 
                             class="w-full h-full object-cover"
                         >
                     </div>
-                    <!-- END PROFILE PICTURE CONTAINER -->
-                    <h1 class="text-3xl sm:text-4xl font-extrabold text-textlight mb-3">Senior UX Research Lead</h1>
-                    <p class="text-lg text-textmuted mb-6">
-                        I am a **Senior UX Researcher & Human Factors Scientist** specializing in translating **behavioral science (PhD)** and **advanced statistics** into product strategy, leading measurable engagement boosts across high-traffic platforms like **Twitch, EA, and Google.**
-                    </p>
-                    
-                    <!-- Contact/Social Links -->
-                    <div class="flex flex-wrap justify-center md:justify-start space-x-4 text-primary text-sm font-medium">
-                        
-                        <!-- 1. LinkedIn Link (full URL) -->
-                        <a href="https://linkedin.com/in/matthew-yanko" target="_blank" class="hover:text-primary/70 flex items-center">
-                            <i data-lucide="linkedin" class="w-4 h-4 mr-1"></i> LinkedIn Profile
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold text-textlight mb-3">The Compensatory Mouse</h3>
+                        <p class="text-textmuted mb-6 flex-grow">
+                            I designed and built a proof-of-concept mouse containing microchip hardware that constantly measures the device's angular position. It <strong>dynamically adjusts cursor direction</strong> to eliminate unexpected control-display mapping errors.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">Hardware</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">Prototyping</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col fade-in-section">
+                    <div class="h-64 bg-slate-50 flex items-center justify-center border-b border-gray-100 overflow-hidden">
+                        <img 
+                            src="https://mattyanko.github.io/me/graph.jpg" 
+                            alt="Fitts' Framework Data Graph" 
+                            class="w-full h-full object-cover"
+                        >
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold text-textlight mb-3">Fitts' Framework Study</h3>
+                        <p class="text-textmuted mb-6 flex-grow">
+                             Wrote an application using the **Fitts' framework** to explore human capability to compensate for unexpected control/display mappings (rotational/gain) and modeled performance degradation using Fitts' Law.
+                        </p>
+                         <a href="https://journals.sagepub.com/doi/abs/10.1177/1071181319631131" target="_blank" class="text-primary font-medium hover:underline mb-6 inline-flex items-center">
+                            Read the Paper <i data-lucide="external-link" class="w-4 h-4 ml-1"></i>
                         </a>
-                        
-                        <!-- 2. Google Scholar Link (Added) -->
-                        <a href="https://scholar.google.ca/citations?user=7-PV-pQAAAAJ&hl=en" target="_blank" class="hover:text-primary/70 flex items-center">
-                            <i data-lucide="graduation-cap" class="w-4 h-4 mr-1"></i> Google Scholar
-                        </a>
-
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold">HCI Research</span>
+                            <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold">Data Analysis</span>
+                            <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold">Fitts' Law</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right Column: Visual Career Roadmap -->
-                <div class="md:col-span-2">
-                    <!-- Border color changed to gray-200 for light mode -->
-                    <h2 class="text-2xl font-bold text-textlight mb-6 border-b border-gray-200 pb-2">Career Roadmap & Impact</h2>
-                    
-                    <div class="roadmap-container">
-                        
-                        <!-- Twitch -->
-                        <div class="roadmap-item">
-                            <div class="roadmap-dot"></div>
-                            <!-- Card background uses new white 'card' variable -->
-                            <div class="bg-card p-4 rounded-xl shadow-lg hover:shadow-primary/50 transition duration-300">
-                                <h3 class="text-xl font-semibold text-primary mb-1">Twitch <span class="text-sm font-normal text-textmuted">(Senior UXR)</span></h3>
-                                <p class="text-sm text-textmuted mb-2">March 2023 - PRESENT</p>
-                                <ul class="list-none space-y-1 text-sm text-textlight">
-                                    <li class="flex items-start"><i data-lucide="zap" class="w-4 h-4 text-yellow-500 mt-0.5 mr-2 flex-shrink-0"></i> **Algorithm Strategy:** Led designs and MaxDiff for algorithms predicting user video preferences, **boosting mobile feed engagement**.</li>
-                                    <li class="flex items-start"><i data-lucide="activity" class="w-4 h-4 text-yellow-500 mt-0.5 mr-2 flex-shrink-0"></i> **Sentiment Dashboard:** Directed initiative to integrate real-time in-app sentiment feedback for quantifiable user satisfaction metrics.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Electronic Arts -->
-                        <div class="roadmap-item">
-                            <div class="roadmap-dot"></div>
-                            <div class="bg-card p-4 rounded-xl shadow-lg hover:shadow-primary/50 transition duration-300">
-                                <h3 class="text-xl font-semibold text-primary mb-1">Electronic Arts <span class="text-sm font-normal text-textmuted">(Sr. UXR / Lead Strategist)</span></h3>
-                                <p class="text-sm text-textmuted mb-2">Jan 2018 - March 2023</p>
-                            <!-- Note: Changed color of bullets to use Orange, since we are moving away from the Teal/Green association. -->
-                                <ul class="list-none space-y-1 text-sm text-textlight">
-                                    <li class="flex items-start"><i data-lucide="cpu" class="w-4 h-4 text-primary mt-0.5 mr-2 flex-shrink-0"></i> **Turing Test / AI Realism:** Pioneered a custom Turing test method for assessing sports AI realism and advanced research techniques across studios.</li>
-                                    <li class="flex items-start"><i data-lucide="users" class="w-4 h-4 text-primary mt-0.5 mr-2 flex-shrink-0"></i> **Fandom Study:** Led comprehensive research on social interactions and the nature of sports fandom, influencing game development.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Google (Contract) -->
-                        <div class="roadmap-item">
-                            <div class="roadmap-dot"></div>
-                            <div class="bg-card p-4 rounded-xl shadow-lg hover:shadow-primary/50 transition duration-300">
-                                <h3 class="text-xl font-semibold text-primary mb-1">Google (Contract) <span class="text-sm font-normal text-textmuted">(UX Researcher, VR)</span></h3>
-                                <p class="text-sm text-textmuted mb-2">Jan 2017 - Jan 2018</p>
-                                <ul class="list-none space-y-1 text-sm text-textlight">
-                                    <li class="flex items-start"><i data-lucide="headset" class="w-4 h-4 text-rose-500 mt-0.5 mr-2 flex-shrink-0"></i> **Physical Comfort:** Converted research findings into design improvements for VR devices covering comfort, fit, and vestibular comfort (simulator sickness).</li>
-                                    <li class="flex items-start"><i data-lucide="eye" class="w-4 h-4 text-rose-500 mt-0.5 mr-2 flex-shrink-0"></i> **Image Quality:** Designed and executed research to optimize optical distortion correction, significantly improving image quality.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- MEA Forensic -->
-                        <div class="roadmap-item">
-                            <div class="roadmap-dot"></div>
-                            <div class="bg-card p-4 rounded-xl shadow-lg hover:shadow-primary/50 transition duration-300">
-                                <h3 class="text-xl font-semibold text-primary mb-1">MEA Forensic Engineers <span class="text-sm font-normal text-textmuted">(Human Factors Scientist)</span></h3>
-                                <p class="text-sm text-textmuted mb-2">Dec 2013 - Jan 2017</p>
-                                <ul class="list-none space-y-1 text-sm text-textlight">
-                                    <li class="flex items-start"><i data-lucide="gavel" class="w-4 h-4 text-sky-500 mt-0.5 mr-2 flex-shrink-0"></i> **Expert Witness:** Provided consulting and expert witness testimony for litigation regarding Human Factors, Usability, Perception, and User-error.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
             </div>
-        </section>
 
-        <!-- Method & Stats Tab -->
-        <section id="analysis-content" class="tab-content">
-            <h2 class="text-3xl font-bold text-primary mb-6">Methodological & Statistical Expertise</h2>
-            <p class="text-lg text-textmuted mb-8">My foundation is a PhD in Experimental Psychology, enabling me to design rigorous studies, lead advanced statistical analysis, and mentor UXR teams on best practices and scientific rigor.</p>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1: Advanced Statistics - Background and Border updated -->
-                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
-                    <i data-lucide="bar-chart-3" class="w-8 h-8 text-primary mb-3"></i>
-                    <h3 class="text-xl font-semibold text-textlight mb-2">Advanced Statistics</h3>
-                    <ul class="list-disc list-inside text-textlight/80 text-sm space-y-1">
-                        <li>**MaxDiff Analysis** (Specialist) & Hierarchical Bayes</li>
-                        <li>Random Forest & Cluster Analysis</li>
-                        <li>Regression (Linear, Multinomial Logistic) & ANOVA/ANCOVA</li>
-                    </ul>
-                </div>
-                <!-- Card 2: Experimental Rigor - Background and Border updated -->
-                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
-                    <i data-lucide="flask-conical" class="w-8 h-8 text-primary mb-3"></i>
-                    <h3 class="text-xl font-semibold text-textlight mb-2">Experimental Rigor</h3>
-                    <ul class="list-disc list-inside text-textlight/80 text-sm space-y-1">
-                        <li>**Psychophysics** (Method of Limits/Constant Stimuli)</li>
-                        <li>Visual Attention & Perception Studies</li>
-                        <li>In-Lab Testing (Qual/Quant) & Benchmarking</li>
-                    </ul>
-                </div>
-                <!-- Card 3: Technical Toolbox - Background and Border updated -->
-                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
-                    <i data-lucide="code" class="w-8 h-8 text-primary mb-3"></i>
-                    <h3 class="text-xl font-semibold text-textlight mb-2">Technical Toolbox</h3>
-                    <ul class="list-disc list-inside text-textlight/80 text-sm space-y-1">
-                        <li>**R** Programming (for complex data analysis) & JASP/SPSS</li>
-                        <li>External Tools: Qualtrics, Sprig, Usertesting.com, Alchemer</li>
-                        <li>EEG (Brain Activity) & Eye-Tracking Technology</li>
-                    </ul>
-                </div>
-                <!-- Card 4: Specialized HMI Methods - Background and Border updated -->
-                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
-                    <i data-lucide="car" class="w-8 h-8 text-primary mb-3"></i>
-                    <h3 class="text-xl font-semibold text-textlight mb-2">Specialized HMI Methods</h3>
-                    <ul class="list-disc list-inside text-textlight/80 text-sm space-y-1">
-                        <li>**Driving Simulator** Study Design & Programming</li>
-                        <li>In-Lab Multiplayer Testing & Custom Turing Tests (EA)</li>
-                        <li>Physical Comfort & Vestibular Comfort (VR)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- More Cool Stuff Tab -->
-        <section id="projects-content" class="tab-content">
-            <h2 class="text-3xl font-bold text-primary mb-6">More Cool Stuff: Innovation, HMI & Engagement</h2>
-            <p class="text-lg text-textmuted mb-8">Showcasing a passion for applying Human Factors principles to unique hardware, software, and social engagement challenges.</p>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-                <!-- Card 1: Fitts' Framework & Hardware - RESTRUCTURED -->
-                <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
-                    <div class="flex items-start mb-4">
-                        <i data-lucide="mouse" class="w-8 h-8 text-primary mr-3 flex-shrink-0"></i>
-                        <h3 class="text-xl font-semibold text-textlight">Fitts' Framework Study & Compensatory Mouse</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="bg-background p-8 rounded-3xl border border-gray-200 hover:border-primary/30 transition-colors fade-in-section">
+                    <div class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center mb-4">
+                        <i data-lucide="video" class="w-6 h-6"></i>
                     </div>
-
-                    <!-- I. The Academic Study -->
-                    <h4 class="text-lg font-semibold text-textlight mb-2">I. Academic Research: Compensatory Behavior</h4>
-                    <p class="text-sm text-textmuted mb-3">Wrote an application using the **Fitts' framework** and ran a study to explore the human capability to compensate for unexpected control/display mappings and the effects of different mappings on pointing performance.</p>
-                    
-                    <!-- Paper Link -->
-                    <a href="https://journals.sagepub.com/doi/abs/10.1177/1071181319631131" target="_blank" class="text-primary hover:text-primary/70 text-sm font-medium flex items-center mb-6">
-                        <i data-lucide="external-link" class="w-4 h-4 mr-1"></i> View Published Paper
-                    </a>
-
-                    <!-- Horizontal Separator for Clarity -->
-                    <div class="border-t border-gray-200 mb-6"></div>
-
-                    <!-- II. Hardware Innovation -->
-                    <h4 class="text-lg font-semibold text-textlight mb-2">II. Compensatory Mouse: Hardware Innovation</h4>
+                    <h3 class="text-xl font-bold text-textlight mb-2">Social Engagement (190k+)</h3>
                     <p class="text-sm text-textmuted mb-4">
-                        I designed and built a proof-of-concept mouse containing microchip hardware that constantly measures the device's angular position relative to the screen, **dynamically adjusting the cursor direction** to maintain correct orientation, thereby eliminating unexpected control-display mappings.
+                        I have over <strong>190k followers on TikTok</strong>. Creating short-form content demonstrates an innate understanding of rapid user attention models and viral feedback loops.
                     </p>
-                    
-                    <!-- GIF -->
-                    <img 
-                        src="https://mattyanko.github.io/me/spynr-demo.gif" 
-                        alt="Animated GIF demonstrating the compensatory mouse technology" 
-                        class="w-full h-auto rounded-xl shadow-md border border-gray-200"
-                    >
+                    <p class="text-xs text-textmuted italic">"Short, 8-second videos provide a great way for me to unwind."</p>
                 </div>
 
-                <!-- Card 2: Personal Software Projects -->
-                <div class="grid grid-rows-2 gap-6">
-                    <!-- Project 1: Ambient - Background and Border updated -->
-                    <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
-                        <div class="flex items-start mb-3">
-                            <i data-lucide="radio" class="w-8 h-8 text-primary mr-3 flex-shrink-0"></i>
-                            <h3 class="text-xl font-semibold text-textlight">Ambient Video Chat App</h3>
-                        </div>
-                        <p class="text-sm text-textmuted">Developed a video chat application that enhances social presence by allowing users to play customizable ambient soundscapes (office sounds, pub noise, etc.) in their virtual rooms.</p>
+                <div class="bg-background p-8 rounded-3xl border border-gray-200 hover:border-primary/30 transition-colors fade-in-section">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mb-4">
+                        <i data-lucide="monitor-smartphone" class="w-6 h-6"></i>
                     </div>
-
-                    <!-- Project 2: Hotseet - Background and Border updated -->
-                    <div class="bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
-                        <div class="flex items-start mb-3">
-                            <i data-lucide="coffee" class="w-8 h-8 text-primary mr-3 flex-shrink-0"></i>
-                            <h3 class="text-xl font-semibold text-textlight">Hotseet Status App</h3>
-                        </div>
-                        <p class="text-sm text-textmuted">Designed a crowd-sourced application that provides real-time restaurant status updates, including wait times, events, and specials, based on self-reported data to manage user expectations.</p>
+                    <h3 class="text-xl font-bold text-textlight mb-2">Ambient Video Chat</h3>
+                    <p class="text-sm text-textmuted mb-4">
+                        Developed a video chat app that enhances social presence by playing customizable ambient soundscapes (office sounds, pub noise) based on the context of the room.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="text-xs bg-white border border-gray-200 px-2 py-1 rounded">UX Design</span>
+                        <span class="text-xs bg-white border border-gray-200 px-2 py-1 rounded">Audio</span>
                     </div>
                 </div>
 
-                <!-- Card 3: Social & Engagement Mastery - Background and Border updated -->
-                <div class="lg:col-span-2 bg-card p-6 rounded-xl shadow-lg border-t-4 border-primary">
-                    <div class="flex items-start mb-3">
-                        <i data-lucide="megaphone" class="w-8 h-8 text-primary mr-3 flex-shrink-0"></i>
-                        <h3 class="text-xl font-semibold text-textlight">Social Engagement Mastery (200k+ Followers)</h3>
-                    </div>
-                    <p class="text-sm text-textmuted">Maintaining a large following on platforms like TikTok demonstrates an innate understanding of **rapid user attention models, engagement loops, and viral communication**. This translates directly to optimizing product discovery and feedback cycles in a corporate setting.</p>
-                    <p class="text-sm font-medium text-textlight mt-2">**Fun Fact:** I spent summers traveling with the carnival, mastering skee-ball and whack-a-mole—early lessons in reward schedules and user flow optimization!</p>
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
+    <section id="references" class="py-20 bg-background border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="text-3xl font-bold text-textlight">References</h2>
+                <p class="text-textmuted mt-2">What colleagues say about working with me</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center fade-in-section hover:shadow-md transition-shadow">
+                    <div class="w-24 h-24 mb-6 rounded-full overflow-hidden border-4 border-gray-100 shadow-sm">
+                        <img 
+                            src="https://mattyanko.github.io/me/dan.jpeg" 
+                            alt="Dan Odell" 
+                            class="w-full h-full object-cover"
+                        >
+                    </div>
+                    <h3 class="text-lg font-bold text-textlight">Dan Odell</h3>
+                    <p class="text-xs text-primary font-semibold uppercase tracking-wide mb-4">Principal HF & Ergonomics, Amazon</p>
+                    <div class="relative">
+                        <i data-lucide="quote" class="w-8 h-8 text-primary/20 absolute -top-4 -left-2"></i>
+                        <p class="text-sm text-textmuted italic relative z-10 leading-relaxed">
+                            "Matt worked with me on the Google Daydream View. He did a great job, was fun to work with, and I'd work with him again in a heartbeat."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center fade-in-section hover:shadow-md transition-shadow">
+                    <div class="w-24 h-24 mb-6 rounded-full overflow-hidden border-4 border-gray-100 shadow-sm">
+                        <img 
+                            src="https://mattyanko.github.io/me/gaspar.jpeg" 
+                            alt="John Gaspar" 
+                            class="w-full h-full object-cover"
+                        >
+                    </div>
+                    <h3 class="text-lg font-bold text-textlight">John Gaspar</h3>
+                    <p class="text-xs text-primary font-semibold uppercase tracking-wide mb-4">Staff Researcher, Meta</p>
+                    <div class="relative">
+                        <i data-lucide="quote" class="w-8 h-8 text-primary/20 absolute -top-4 -left-2"></i>
+                        <p class="text-sm text-textmuted italic relative z-10 leading-relaxed">
+                            "Matt is one of the most clever and versatile researchers I've ever worked with. From his academic work to his UX roles, I'm repeatedly impressed by his thoughtful insights... and the clarity with which he can explain complex concepts."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center fade-in-section hover:shadow-md transition-shadow">
+                    <div class="w-24 h-24 mb-6 rounded-full overflow-hidden border-4 border-gray-100 shadow-sm">
+                        <img 
+                            src="https://mattyanko.github.io/me/surabhi.jpeg" 
+                            alt="Surabhi Mathur" 
+                            class="w-full h-full object-cover"
+                        >
+                    </div>
+                    <h3 class="text-lg font-bold text-textlight">Surabhi Mathur</h3>
+                    <p class="text-xs text-primary font-semibold uppercase tracking-wide mb-4">Principal Experience Researcher, Autodesk</p>
+                    <div class="relative">
+                        <i data-lucide="quote" class="w-8 h-8 text-primary/20 absolute -top-4 -left-2"></i>
+                        <p class="text-sm text-textmuted italic relative z-10 leading-relaxed">
+                            "Matt is not only an accomplished, creative, and passionate researcher but also a great mentor who fuels innovation. Would highly recommend working with him."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-gray-200 py-12 text-center">
+        <p class="text-textmuted text-sm">© 2025 Matthew R. Yanko.</p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="https://linkedin.com/in/matthew-yanko" class="text-gray-400 hover:text-primary transition-colors">
+                <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            
+        </div>
+    </footer>
 
     <script>
-        // Initialize Lucide icons
+        // Initialize Icons
         lucide.createIcons();
 
-        // Tab Switching Logic
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        const switchTab = (targetTab) => {
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            // Update button styles for light mode
-            tabButtons.forEach(button => {
-                button.classList.remove('bg-primary/50', 'text-textlight');
-                button.classList.add('text-textmuted', 'hover:bg-gray-100');
-            });
-
-            document.getElementById(`${targetTab}-content`).classList.add('active');
-            // Active button should have the primary background color effect
-            document.querySelector(`[data-tab="${targetTab}"]`).classList.remove('text-textmuted', 'hover:bg-gray-100');
-            document.querySelector(`[data-tab="${targetTab}"]`).classList.add('bg-primary/50', 'text-textlight');
-        };
-
-        // Set initial active tab
-        document.addEventListener('DOMContentLoaded', () => {
-            switchTab('about');
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
         });
 
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const targetTab = button.getAttribute('data-tab');
-                switchTab(targetTab);
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Sticky Nav Highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-primary');
+                link.classList.add('text-textmuted');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.remove('text-textmuted');
+                    link.classList.add('text-primary');
+                }
             });
         });
     </script>
